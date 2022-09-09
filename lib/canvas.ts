@@ -94,7 +94,7 @@ export const paintBufferAsPatchCode = (
 
 export const readPatchCode = (
   canvas: Canvas,
-  bytesToRead: number,
+  nibblesToRead: number,
   placement: SignaturePlacement
 ) => {
   const patchCode: number[] = [];
@@ -106,11 +106,11 @@ export const readPatchCode = (
       placement.yOffset + y
     );
 
-    if (patchCode.length < bytesToRead) patchCode.push(colorToNibble(r));
-    if (patchCode.length < bytesToRead) patchCode.push(colorToNibble(g));
-    if (patchCode.length < bytesToRead) patchCode.push(colorToNibble(b));
+    if (patchCode.length < nibblesToRead) patchCode.push(colorToNibble(r));
+    if (patchCode.length < nibblesToRead) patchCode.push(colorToNibble(g));
+    if (patchCode.length < nibblesToRead) patchCode.push(colorToNibble(b));
 
-    return patchCode.length >= bytesToRead;
+    return patchCode.length >= nibblesToRead;
   });
 
   return Buffer.from(fromNibbles(patchCode));
@@ -140,9 +140,9 @@ export const forEachPatch = (onPatch: OnPatchFn) => {
 };
 
 const nibbleToColor = (nibble: number) => {
-  return nibble * 10 + 48;
+  return nibble * 8 + 64;
 };
 
 const colorToNibble = (color: number) => {
-  return Math.round((color - 48) / 10);
+  return Math.round((color - 64) / 8);
 };

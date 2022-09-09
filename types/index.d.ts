@@ -17,4 +17,9 @@ interface SignaturePlacement {
   direction: Direction;
 }
 
+interface SignatureAddress {
+    signature: string
+    address: string
+}
+
 type OnPatchFn = (x: number, y: number, idx: number) => boolean;

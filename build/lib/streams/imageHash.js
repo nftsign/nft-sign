@@ -27,7 +27,7 @@ const addImageHashToPipelineContext = (ctx) => {
 exports.addImageHashToPipelineContext = addImageHashToPipelineContext;
 const computeImageHash = (png, placement) => {
     const canvas = (0, canvas_1.pngToCanvas)(png);
-    const fill = Buffer.alloc(constants_1.SIGNATURE_LEN, 0);
+    const fill = Buffer.alloc(constants_1.DATA_LEN, 0);
     (0, canvas_1.paintBufferAsPatchCode)(canvas, fill, placement);
     return Buffer.from((0, node_crypto_1.createHash)("sha256").update(canvas.area).digest());
 };

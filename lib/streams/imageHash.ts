@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import { PNG } from "pngjs";
 import { paintBufferAsPatchCode, pngToCanvas } from "../canvas";
-import { BOTTOM_OFFSET, PAD, SIGNATURE_LEN } from "../constants";
+import { DATA_LEN } from "../constants";
 import { getDefaultPlacement } from "../placement";
 
 export const addImageHashToPipelineContext = (ctx: SignatureContext) => {
@@ -18,7 +18,7 @@ export const computeImageHash = (
   placement: SignaturePlacement
 ): Buffer => {
   const canvas = pngToCanvas(png);
-  const fill = Buffer.alloc(SIGNATURE_LEN, 0);
+  const fill = Buffer.alloc(DATA_LEN, 0);
   paintBufferAsPatchCode(canvas, fill, placement);
 
   return Buffer.from(createHash("sha256").update(canvas.area).digest());

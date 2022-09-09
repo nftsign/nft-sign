@@ -20,13 +20,20 @@ const verifyImageHash = () => {
     return new pngjs_1.PNG().on("parsed", function () {
         return __awaiter(this, void 0, void 0, function* () {
             const hash = (0, imageHash_1.computeImageHash)(this, (0, placement_1.getDefaultPlacement)(this));
-            const signature = readSignatureFromImage(this);
-            console.log(`Image hash: ${hash.toString("hex")}`);
-            console.log(`Signature: ${signature}`);
+            const sigData = readSignatureDataFromImage(this);
+            console.log(`Image hash:\t\t${hash.toString("hex")}`);
+            console.log(`Signature:\t\t${sigData.signature}`);
+            console.log(`Address:\t\t${sigData.address}`);
             try {
-                const signingAddress = ethers_1.ethers.utils.verifyMessage(hash, signature);
-                console.log(`Signature is valid!`);
-                console.log(`Signed by https://etherscan.io/address/${signingAddress}`);
+                const signingAddress = ethers_1.ethers.utils.verifyMessage(hash, sigData.signature);
+                if (sigData.address.toLowerCase() === signingAddress.toLowerCase()) {
+                    console.log("\nVerification SUCCESS\n");
+                    console.log(`Image was signed by:\thttps://etherscan.io/address/${signingAddress}\n`);
+                }
+                else {
+                    console.log(`\nVerification FAIL !!!`);
+                    console.log(`Expected address '${sigData.address}' does not match signer's address '${signingAddress}'`);
+                }
             }
             catch (e) {
                 console.log("Verification failed");
@@ -35,8 +42,11 @@ const verifyImageHash = () => {
     });
 };
 exports.verifyImageHash = verifyImageHash;
-const readSignatureFromImage = (png) => {
+const readSignatureDataFromImage = (png) => {
     const canvas = (0, canvas_1.pngToCanvas)(png);
-    const sigBuffer = (0, canvas_1.readPatchCode)(canvas, constants_1.SIGNATURE_LEN * 2, (0, placement_1.getDefaultPlacement)(png));
-    return "0x" + sigBuffer.toString("hex"); // TODO what if the highest-order digit is 0?
+    const sigBuffer = (0, canvas_1.readPatchCode)(canvas, constants_1.DATA_LEN * 2, (0, placement_1.getDefaultPlacement)(png));
+    return {
+        signature: "0x" + sigBuffer.subarray(0, constants_1.SIGNATURE_LEN).toString("hex"),
+        address: "0x" + sigBuffer.subarray(constants_1.SIGNATURE_LEN).toString("hex"),
+    };
 };
