@@ -4,9 +4,9 @@ A simple CLI tool to stamp and verify PNG images using visual signature patches
 
 This tool allows you to:
 - Write a signature patch onto a PNG image (using an Ethereum mnemonic)
-- Verify a signature patch on a PNG (that was created by this tool)
+- Verify a signature patch on a PNG (previously created by this tool)
 
-Here is an example of an (all black) image with a valid and verifiable signature patch:
+Here is an (all black) image with a valid and verifiable signature patch:
 
 ![Example Signature Patch](images/examplepatch.signed.png)
 
@@ -19,12 +19,12 @@ npx nft-sign <img.png>
 ```
 Use this command to create a signature patch for a PNG image, tied to an Ethereum address.
 
-This command will first prompt you for the mnemonic (i.e. private key) of an Ethereum address.  
-The image data is then hashed and signed by this private key, and
-this signature and the wallet address is then used to paint a signature patch on the PNG.
+This command first prompts you for a mnemonic (i.e. private key) of an Ethereum address.  
+The image data is then hashed and signed by the given private key, and
+this signature with the wallet address are combined to paint a signature patch on top of the image.
 
 The signed image is then saved under the same name with a '.signed' sub-extension (e.g. img.signed.png)
-Only basic RGBA PNG images are supported at this time.
+Note: Only basic RGBA PNG images are supported at this time.
 
 Here is a sample image with a signature patch applied to the bottom-right corner:
 
