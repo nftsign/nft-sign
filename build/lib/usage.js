@@ -11,6 +11,6 @@ const showUsage = () => {
     console.log("╚═╝░░╚══╝╚═╝░░░░░░░░╚═╝░░░░░░░░░╚═════╝░╚═╝░╚═════╝░╚═╝░░╚══╝");
     console.log("\n\nUsage patterns: \n");
     console.log("\tnpx nft-sign <img.png>\n");
-    console.log("\tnpx nft-sign --verify <img.signed.png> \n\n");
+    console.log("\tnpx nft-sign verify <img.signed.png> \n\n");
 };
 exports.showUsage = showUsage;
