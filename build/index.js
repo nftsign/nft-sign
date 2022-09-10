@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -27,6 +26,7 @@ function run() {
                 const filename = process.argv[3];
                 console.log(`Verifying: ${filename}\n`);
                 yield (0, pipelines_1.verifyNFTPipeline)(filename);
+                ///
             }
             else if (process.argv[2].endsWith(".png")) {
                 const mnemonic = readline_sync_1.default.question("Mnemonic phrase (signer): ");

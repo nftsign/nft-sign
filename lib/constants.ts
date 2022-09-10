@@ -5,8 +5,8 @@ export const ADDRESS_LEN = 20;
 export const DATA_LEN = SIGNATURE_LEN + ADDRESS_LEN;
 export const PAD = 8;
 
-export const PATCH_WIDTH = 1;
-export const PATCH_HEIGHT = 1;
+export const PATCH_WIDTH = 2;
+export const PATCH_HEIGHT = 2;
 export const GAP = 4;
 export const ROWS = 4;
 export const SPACE_AFTER_N_COLS = 4;

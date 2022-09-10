@@ -13,6 +13,8 @@ async function run() {
       const filename = process.argv[3];
       console.log(`Verifying: ${filename}\n`);
       await verifyNFTPipeline(filename);
+
+      ///
     } else if (process.argv[2].endsWith(".png")) {
       const mnemonic = readlineSync.question("Mnemonic phrase (signer): ")
       const wallet = ethers.Wallet.fromMnemonic(mnemonic);
